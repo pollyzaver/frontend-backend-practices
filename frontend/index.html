@@ -11,13 +11,26 @@
   <body>
     <main class="page">
       <article class="product-card product-card--accent">
-        <div class="product-card__image" aria-hidden="true"></div>
+
+        <div class="product-card__badge">Limited Edition</div>
+
+        <img 
+          class="product-card__image" 
+          src="./images/the beatles.jpg" 
+          alt="Виниловая пластинка The Beatles"
+          style="width: 100%; height: 100%; object-fit: cover; border-radius: 14px;"
+        >
 
         <div class="product-card__content">
-          <h1 class="product-card__title">Наушники ProSound</h1>
+          <h1 class="product-card__title">The Beatles — Abbey Road</h1>
           <p class="product-card__desc">
-            Лёгкие, удобные, с хорошей шумоизоляцией. Пример карточки для практики.
+            Культовый альбом 1969 года. Ремастированное издание на тяжёлом виниле (180g). Включает легендарное попурри на второй стороне.
           </p>
+
+          <div class="product-card__details">
+            <span class="product-card__format">LP, 180g</span>
+            <span class="product-card__year">1969 / 2024</span>
+          </div>
 
           <div class="product-card__footer">
             <span class="product-card__price">4 990 ₽</span>
@@ -25,15 +38,6 @@
           </div>
         </div>
       </article>
-
-      <section class="note">
-        <h2 class="note__title">Что нужно сделать студенту</h2>
-        <ol class="note__list">
-          <li>Изменить карточку под свой товар.</li>
-          <li>Добавить минимум 2 переменные, 1 миксин, вложенность.</li>
-          <li>Скомпилировать SCSS в CSS (папка <code>public/</code>).</li>
-        </ol>
-      </section>
     </main>
   </body>
 </html>

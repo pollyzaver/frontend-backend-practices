@@ -24,7 +24,7 @@ router.get("/:id", (req, res) => {
 
 // POST /api/products — добавить товар
 router.post("/", (req, res) => {
-  const { title, price } = req.body;
+  const { title, price, category } = req.body;
 
   // Минимальная валидация 
   if (typeof title !== "string" || title.trim() === "") {
@@ -47,7 +47,7 @@ router.patch("/:id", (req, res) => {
   const product = findById(req.params.id);
   if (!product) return res.status(404).json({ error: "Product not found" });
 
-  const { title, price } = req.body;
+  const { title, price, category } = req.body;
 
   if (title !== undefined) {
     if (typeof title !== "string" || title.trim() === "") {
@@ -78,11 +78,7 @@ router.delete("/:id", (req, res) => {
   if (products.length === before) {
     return res.status(404).json({ error: "Product not found" });
   }
-
-  // Вариант 1: вернуть 204 No Content (часто делают так)
-  // return res.status(204).send();
-
-  // Вариант 2: вернуть "ok" 
+ 
   res.json({ ok: true });
 });
 

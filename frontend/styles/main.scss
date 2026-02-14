@@ -1,27 +1,34 @@
 // Практика 1: SCSS (SASS) — карточка товара
 // Требования: переменные (>=2), миксин (>=1), вложенность селекторов.
 
-$color-primary: #3498db;
+$color-primary: #b90f0f;
 $color-bg: #111;
-$color-surface: #1b1b1b;
+$color-surface: #1d1d1d;
 $color-text: #f5f5f5;
 $radius: 14px;
 $gap: 14px;
+$font-heading: 'Segoe UI', 'Arial', sans-serif; 
+$color-accent: #d4af37;
 
 // Миксин (аналог функции): задаём базовый вид кнопки.
 // Параметр $bg позволяет переиспользовать миксин для разных кнопок.
 @mixin button($bg) {
   display: inline-block;
-  padding: 10px 14px;
-  border-radius: 10px;
+  padding: 10px 18px;
+  border-radius: 30px;           // более современные кнопки
   background: $bg;
   color: white;
   text-decoration: none;
   font-weight: 600;
+  font-size: 14px;
   line-height: 1;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -39,15 +46,33 @@ body {
 
 // Вложенность: описываем элементы карточки внутри .product-card
 .product-card {
+  position: relative; 
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: $gap;
   background: $color-surface;
   border-radius: $radius;
   padding: 18px;
+  transition: transform 0.2s;
 
   &--accent {
     border: 2px solid $color-primary;
+  }
+
+  &__badge {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    background: $color-accent;
+    color: #1a1a1a;
+    padding: 4px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 10;
   }
 
   &__image {
@@ -69,6 +94,7 @@ body {
   &__title {
     margin: 0;
     font-size: 22px;
+    font-family: $font-heading;
   }
 
   &__desc {
@@ -76,27 +102,38 @@ body {
     opacity: 0.85;
     line-height: 1.4;
   }
+  
+  &__details {
+    display: flex;
+    gap: 12px;
+    margin: 4px 0;
+    font-size: 13px;
+  }
 
   &__footer {
-    margin-top: 10px;
+    margin-top: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 14px;
   }
 
   &__price {
     font-size: 20px;
     font-weight: 700;
+    color: $color-primary;
   }
 }
 
 .btn {
-  // Подключаем миксин и передаём цвет фона
   @include button($color-primary);
 
   &:hover {
     filter: brightness(1.05);
+  }
+  &:active {
+    transform: scale(0.98);       // эффект нажатия
   }
 }
 
