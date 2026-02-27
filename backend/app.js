@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+
+// Swagger
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
@@ -10,18 +12,22 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+  })
+);
 app.use(express.json());
 app.use(logger);
 
-// Настройка Swagger
+// Swagger настройка
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
       title: "Vinyl Store API",
       version: "1.0.0",
-      description: "API для магазина виниловых пластинок",
+      description: "REST API для магазина виниловых пластинок",
     },
     servers: [
       {
@@ -41,8 +47,14 @@ app.get("/", (req, res) => {
   res.send("Vinyl Store API. Документация: /api-docs");
 });
 
-// Роуты API
+// Роуты
 app.use("/api/products", productsRouter);
+
+// Обработка ошибок
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ error: "Internal server error" });
+});
 
 // 404
 app.use((req, res) => {
