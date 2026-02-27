@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const logger = require("./middleware/logger");
 const productsRouter = require("./routes/products");
@@ -7,18 +9,36 @@ const productsRouter = require("./routes/products");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware: разрешаем запросы с фронта (на практике можно обсудить CORS)
+// Middleware
 app.use(cors());
-
-// Middleware: чтобы читать JSON из тела запроса (req.body)
 app.use(express.json());
-
-// Собственный logger для наглядности
 app.use(logger);
 
-// Healthcheck / главная
+// Настройка Swagger
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Vinyl Store API",
+      version: "1.0.0",
+      description: "API для магазина виниловых пластинок",
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+        description: "Локальный сервер",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Healthcheck
 app.get("/", (req, res) => {
-  res.send("Express API is running. Try /api/products");
+  res.send("Vinyl Store API. Документация: /api-docs");
 });
 
 // Роуты API
@@ -31,9 +51,5 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server started: http://localhost:${PORT}`);
+  console.log(`Swagger UI: http://localhost:${PORT}/api-docs`);
 });
-<<<<<<< HEAD
-
-app.use(cors({ origin: 'http://localhost:3001' }));
-=======
->>>>>>> origin/main
