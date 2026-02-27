@@ -14,11 +14,9 @@ CRUD API для товаров с дополнительным полем "categ
 - POST /api/products — создание товара
 - PATCH /api/products/:id — обновление товара
 - DELETE /api/products/:id — удаление товара
-<<<<<<< HEAD
 
 **Скриншоты:**
 - ![GET все товары](docs/get.png)
-- ![GET товар по ID](docs/get_users_ext.png)
 - ![POST создание](docs/post.png)
 - ![PATCH обновление](docs/patch.png)
 - ![DELETE удаление](docs/delete.png)
@@ -41,12 +39,22 @@ CRUD API для товаров с дополнительным полем "categ
 - **Фронтенд:** `/frontend` — React приложение, подключенное к API
 - Реализован полный CRUD через интерфейс
 
-### Запуск проекта
-**Бэкенд:**
-```bash
-cd backend
-npm install
-npm run dev
-=======
-- Дополнительное поле: category
->>>>>>> origin/main
+## Практика 5: Swagger (документация API)
+
+К API добавлена интерактивная документация Swagger.
+
+### Что реализовано:
+- Полное описание всех эндпоинтов (`/api/products`)
+- Схема данных `Product` с полями: id, title, price, category, description, stock
+- Документация доступна в браузере по адресу `/api-docs`
+- Возможность тестировать запросы прямо из интерфейса Swagger ("Try it out")
+
+### Эндпоинты в документации:
+| Метод | URL | Описание |
+|-------|-----|----------|
+| GET | `/api/products` | Получить все товары |
+| GET | `/api/products/{id}` | Получить товар по ID |
+| POST | `/api/products` | Создать товар |
+| PATCH | `/api/products/{id}` | Обновить товар |
+| DELETE | `/api/products/{id}` | Удалить товар |
+
