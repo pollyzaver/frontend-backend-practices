@@ -14,6 +14,7 @@ CRUD API для товаров с дополнительным полем "categ
 - POST /api/products — создание товара
 - PATCH /api/products/:id — обновление товара
 - DELETE /api/products/:id — удаление товара
+<<<<<<< HEAD
 
 **Скриншоты:**
 - ![GET все товары](docs/get.png)
@@ -46,3 +47,6 @@ CRUD API для товаров с дополнительным полем "categ
 cd backend
 npm install
 npm run dev
+=======
+- Дополнительное поле: category
+>>>>>>> origin/main
