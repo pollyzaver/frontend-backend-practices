@@ -32,3 +32,5 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started: http://localhost:${PORT}`);
 });
+
+app.use(cors({ origin: 'http://localhost:3001' }));
