@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { getProducts, deleteProduct } from '../api';
+import { getProducts, deleteProduct, updateProduct, createProduct } from '../api';
 import ProductList from '../components/ProductList';
 import ProductModal from '../components/ProductModal';
 import './ProductsPage.css';
 
-export default function ProductsPage() {
+export default function ProductsPage({ userRole }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+
+  const isAdmin = userRole === 'admin';
 
   useEffect(() => {
     loadProducts();
@@ -40,7 +42,9 @@ export default function ProductsPage() {
     <div className="page">
       <header className="header">
         <h1>Виниловый магазин</h1>
-        <button onClick={() => setModalOpen(true)}>+ Добавить товар</button>
+        {isAdmin && (
+          <button onClick={() => setModalOpen(true)}>+ Добавить товар</button>
+        )}
       </header>
 
       <main>
@@ -49,11 +53,12 @@ export default function ProductsPage() {
         ) : (
           <ProductList 
             products={products} 
-            onEdit={(product) => {
+            onEdit={isAdmin ? (product) => {
               setEditingProduct(product);
               setModalOpen(true);
-            }}
-            onDelete={handleDelete} 
+            } : null}
+            onDelete={isAdmin ? handleDelete : null}
+            isAdmin={isAdmin}
           />
         )}
       </main>

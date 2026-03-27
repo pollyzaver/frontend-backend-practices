@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ProductCard({ product, onEdit, onDelete }) {
+export default function ProductCard({ product, onEdit, onDelete, isAdmin }) {
   return (
     <div className="product-card">
       <div className="product-card__badge">Хит</div>
@@ -14,10 +14,14 @@ export default function ProductCard({ product, onEdit, onDelete }) {
       <p className="product-card__description">{product.description}</p>
       <div className="product-card__price">{product.price} ₽</div>
       <div className="product-card__stock">В наличии: {product.stock} шт.</div>
-      <div className="product-card__actions">
-        <button onClick={() => onEdit(product)}>Редактировать</button>
-        <button onClick={() => onDelete(product.id)}>Удалить</button>
-      </div>
+      
+      {/* ✅ Кнопки только для администратора */}
+      {isAdmin && (
+        <div className="product-card__actions">
+          <button onClick={() => onEdit(product)}>Редактировать</button>
+          <button onClick={() => onDelete(product.id)}>Удалить</button>
+        </div>
+      )}
     </div>
   );
 }
